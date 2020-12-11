@@ -17,6 +17,7 @@ scene.add(new THREE.GridHelper(100, 10, 0xfffffff));
 scene.add(new THREE.AxesHelper(30));
 
 controls = new OrbitControls( camera, renderer.domElement );
+//controls.addEventListener('change', render);
 
 // </Scene>
 
@@ -33,17 +34,28 @@ cubeCamera.lookAt(0, 0, 0);
 const viewCube = new ViewCubeControls(cubeCamera, undefined, undefined, cubeRenderer.domElement);
 cubeScene.add(viewCube.getObject());
 viewCube.addEventListener('angle-change', ({ quaternion }) => {
+  //console.log('angle-change', quaternion);
+  //controls.enabled = false;
   camera.setRotationFromQuaternion(quaternion.inverse());
 });
 // </CubeScene>
 
+function animate() {
+  requestAnimationFrame(animate);
+  update();
+  render();
+}
+
 function update() {
-  requestAnimationFrame(update);
   // required if controls.enableDamping or controls.autoRotate are set to true
-  controls.update();
+  //controls.update();
+
   viewCube.update();
+}
+
+function render() {
   renderer.render(scene, camera);
   cubeRenderer.render(cubeScene, cubeCamera);
 }
 
-update();
+animate();
