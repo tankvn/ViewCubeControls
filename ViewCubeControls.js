@@ -1,4 +1,5 @@
-import * as THREE from 'three';
+//import * as THREE from 'three';
+import * as THREE from './threejs/build/three.module.js';
 
 const MAINCOLOR = 0xDDDDDD;
 const ACCENTCOLOR = 0XF2F5CE;
